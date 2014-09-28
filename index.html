@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Async JS with CSP and FRP</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <aside>
+            <h1>Examples</h1>
+            <ul>
+                <li><a href="#" onclick="Example.load(FRP.examples[0])">Example 1</a></li>
+                <li><a href="#" onclick="Example.load(FRP.examples[1])">Example 2</a></li>
+            </ul>
+        </aside>
+
+        <section class="example">
+            <h1></h1>
+            <div>
+                Source
+                <pre class="code"></pre>
+            </div>
+            <div>
+                 Output
+                 <pre class="output"></pre>
+            </div>
+            <button>Run</button>
+        </section>
+
+        <!-- Libraries -->
+        <script src="lib/Bacon.js"></script>
+        <script src="lib/csp.bundled.js"></script>
+
+        <!-- Examples -->
+        <script src="common.js" type="application/javascript;version=1.7"></script>
+        <script src="frp.js" type="application/javascript;version=1.7"></script>
+    </body>
+</html>
