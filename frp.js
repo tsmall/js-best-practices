@@ -12,25 +12,25 @@ let FRP = {
         if (category === "Drama") movies = Movies.dramaMovies;
         if (category === "Horror") movies = Movies.horrorMovies;
         return Bacon.sequentially(1000, movies);
-    },
-
-    examples: [
-        {
-            title: "Get All Movies (FRP)",
-            run: (logger) => {
-                FRP.getCategories().onValue(category => {
-                    FRP.getMoviesInCategory(category).onValue(movie => {
-                        logger(category + ' - ' + movie);
-                    });
-                });
-            }
-        },
-        {
-            title: "Another Example",
-            run: (logger) => {
-                logger("Just testing...");
-            }
-        }
-    ]
+    }
 
 };
+
+let FRPExamples = [
+    {
+        title: "Get All Movies (FRP)",
+        run: (logger) => {
+            FRP.getCategories().onValue(category => {
+                FRP.getMoviesInCategory(category).onValue(movie => {
+                    logger(category + ' - ' + movie);
+                });
+            });
+        }
+    },
+    {
+        title: "Another Example",
+        run: (logger) => {
+            logger("Just testing...");
+        }
+    }
+];

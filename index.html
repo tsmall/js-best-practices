@@ -8,17 +8,27 @@
     <body>
         <aside>
             <h1>Examples</h1>
+
+            <h2>FRP</h2>
             <ul>
-                <li><a href="#" onclick="Example.load(FRP.examples[0])">Example 1</a></li>
-                <li><a href="#" onclick="Example.load(FRP.examples[1])">Example 2</a></li>
+                <li><a href="#" onclick="Example.load(FRP, FRPExamples[0])">Example #1</a></li>
+            </ul>
+
+            <h2>CSP</h2>
+            <ul>
+                <li><a href="#" onclick="Example.load(CSP, CSPExamples[0])">Example #1</a></li>
             </ul>
         </aside>
 
         <section class="example">
             <h1></h1>
             <div>
-                Source
-                <pre class="code"></pre>
+                Helpers
+                <pre class="code-helpers"></pre>
+            </div>
+            <div>
+                Example
+                <pre class="code-example"></pre>
             </div>
             <div>
                  Output
@@ -34,5 +44,6 @@
         <!-- Examples -->
         <script src="common.js" type="application/javascript;version=1.7"></script>
         <script src="frp.js" type="application/javascript;version=1.7"></script>
+        <script src="csp.js" type="application/javascript;version=1.7"></script>
     </body>
 </html>
