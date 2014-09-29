@@ -19,7 +19,7 @@ let Example = {
         let examplePre = this._getElement('.code-example');
         examplePre.contentEditable = true;
         examplePre.spellcheck = false;
-        examplePre.innerHTML = this._fnToString(example.run, 8);
+        examplePre.innerHTML = this._fnToString(example.run);
 
         Logger.clear();
 
@@ -42,12 +42,48 @@ let Example = {
         return document.querySelector(['.example', selector].join(' '));
     },
 
-    _fnToString: function(fn, extraLeadingSpaces) {
-        return fn.
-            toString().
-            split('\n').
+    /**
+     * _fnToString returns a nicely formatted string representation of
+     * the function fn's source code.
+     */
+    _fnToString: function(fn) {
+        return this._fixLeadingSpaces(fn.toString());
+    },
+
+    /**
+     * _fixLeadingSpaces fixes the leading spaces in the code string
+     * so that four spaces are used for indents.  It does this using a
+     * heuristic, assuming that the second line should be indented
+     * once stop.  It returns a new string containing the fixed code.
+     */
+    _fixLeadingSpaces: function(code) {
+        let lines = code.split('\n');
+        if (lines.length === 1) {
+            return code;
+        }
+
+        let extraLeadingSpaces = this._countLeadingSpaces(lines[1]) - 4;
+        if (extraLeadingSpaces <= 0) {
+            return code;
+        }
+
+        return lines.
             map(line => line.startsWith(' ') ? line.substring(extraLeadingSpaces) : line).
             join('\n');
+    },
+
+    /**
+     * _countLeadingSpaces returns the number of leading spaces in str.
+     */
+    _countLeadingSpaces: function(str) {
+        let count = 0;
+        for (let c of str) {
+            if (c !== ' ') {
+                break;
+            }
+            count++;
+        }
+        return count;
     },
 
     _objToString: function(obj) {
@@ -55,7 +91,7 @@ let Example = {
         let source = [];
         for (let prop in obj) {
             if (obj.hasOwnProperty(prop)) {
-                source.push(objName + '.' + prop + ' = ' + this._fnToString(obj[prop], 4));
+                source.push(objName + '.' + prop + ' = ' + this._fnToString(obj[prop]));
                 source.push('');
             }
         }
