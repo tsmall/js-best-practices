@@ -34,7 +34,10 @@ let Example = {
     },
 
     _evalCode: function(codePre) {
-        let code = codePre.innerHTML.replace(/&gt;/g, '>').replace(/<br>/g, '\n');
+        let code = codePre.innerHTML.
+                replace(/&gt;/g, '>').
+                replace(/<br>/g, '\n').
+                replace(/&nbsp;/g, ' ');
         return eval(code);
     },
 
