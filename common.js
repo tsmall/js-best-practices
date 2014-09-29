@@ -7,48 +7,6 @@ let Movies = {
 
 let Example = {
 
-    /**
-     * createExampleLinks creates the sidebar links from the actual
-     * example code, hooking them up so clicking on one will load that
-     * example's code in the example runner.
-     */
-    createExampleLinks: function() {
-        let exampleSections = [
-            {title: 'FRP', helpers: window.FRP, examples: window.FRPExamples},
-            {title: 'CSP', helpers: window.CSP, examples: window.CSPExamples}
-        ];
-
-        let containers = exampleSections.map(exampleGroup => {
-            let section = document.createElement('div');
-
-            let header = document.createElement('h2');
-            header.innerHTML = exampleGroup.title;
-            section.appendChild(header);
-
-            let list = document.createElement('ul');
-            exampleGroup.examples.
-                map(ex => {
-                    let link = document.createElement('a');
-                    link.href = '#';
-                    link.innerHTML = ex.title;
-                    link.onclick = (event) => {
-                        event.preventDefault();
-                        Example.load(exampleGroup.helpers, ex);
-                    };
-
-                    let li = document.createElement('li');
-                    li.appendChild(link);
-                    return li;
-                }).
-                forEach(li => list.appendChild(li));
-            section.appendChild(list);
-            return section;
-        });
-
-        let sidebar = document.querySelector('aside');
-        containers.forEach(section => sidebar.appendChild(section));
-    },
-
     load: function(helpers, example) {
         let title = this._getElement('h1');
         title.innerHTML = example.title;
@@ -125,6 +83,80 @@ let Example = {
 
     log: function(outputElement, text) {
         outputElement.innerHTML = outputElement.innerHTML + text + '<br>';
+    }
+
+};
+
+/**
+ * Sidebar is an object for managing the example sidebar.
+ */
+let Sidebar = {
+
+    /**
+     * init creates the sidebar links from the actual
+     * example code, hooking them up so clicking on one will load that
+     * example's code in the example runner.
+     */
+    init: function() {
+        let exampleSections = [
+            {title: 'FRP', helpers: window.FRP, examples: window.FRPExamples},
+            {title: 'CSP', helpers: window.CSP, examples: window.CSPExamples}
+        ];
+
+        let containers = exampleSections.map(this._createExampleSection.bind(this));
+        let sidebar = document.querySelector('aside');
+        containers.forEach(section => sidebar.appendChild(section));
+    },
+
+    /**
+     * _createExampleSection returns a new HTML element containing
+     * information about and links for loading a group of
+     * examples. The exampleGroup is an object with three properties:
+     *
+     *   - title: the name of the section
+     *   - helpers: the object containing the example's helper functions
+     *   - examples: the array containing the examples
+     */
+    _createExampleSection: function(exampleGroup) {
+        let section = document.createElement('div');
+        section.appendChild(this._createHeader(exampleGroup.title));
+        section.appendChild(this._createLinks(exampleGroup.examples, exampleGroup.helpers));
+        return section;
+    },
+
+    /**
+     * _createHeader returns a new HTML element containing an example
+     * group's title.
+     */
+    _createHeader: function(text) {
+        let header = document.createElement('h2');
+        header.innerHTML = text;
+        return header;
+    },
+
+    /**
+     * _createLinks returns a new HTML element containing links for
+     * each of the examples.  When the links are clicked, the
+     * associated example is loaded.
+     */
+    _createLinks: function(examples, helpers) {
+        let list = document.createElement('ul');
+        examples.
+            map(ex => {
+                let link = document.createElement('a');
+                link.href = '#';
+                link.innerHTML = ex.title;
+                link.onclick = (event) => {
+                    event.preventDefault();
+                    Example.load(helpers, ex);
+                };
+
+                let li = document.createElement('li');
+                li.appendChild(link);
+                return li;
+            }).
+            forEach(li => list.appendChild(li));
+        return list;
     }
 
 };
