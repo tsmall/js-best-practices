@@ -30,6 +30,30 @@ let CSP = {
             out.close();
         });
         return out;
+    },
+
+    flatMapFrom: (f, ch) => {
+        let out = csp.chan();
+        csp.go(function*() {
+            let val, doneChs = [];
+            while ((val = yield csp.take(ch)) !== csp.CLOSED) {
+                let mapCh = f(val);
+                let done = csp.chan();
+                doneChs.push(done);
+                csp.go(function*() {
+                    let mapChVal;
+                    while ((mapChVal = yield csp.take(mapCh)) !== csp.CLOSED) {
+                        yield csp.put(out, mapChVal);
+                    }
+                    done.close();
+                });
+            }
+
+            let allDone = csp.operations.merge(doneChs);
+            while ((yield csp.take(allDone)) !== csp.CLOSED) {}
+            out.close();
+        });
+        return out;
     }
 
 };
@@ -80,6 +104,31 @@ let CSPExamples = [
                 let movieInfo;
                 while ((movieInfo = yield csp.take(movieChan)) !== csp.CLOSED) {
                     logger(movieInfo.category + ' - ' + movieInfo.movie);
+                }
+
+                logger("Loading finished.");
+            });
+        }
+    },
+    {
+        title: "Get Movies with Indicator (FRP style CSP)",
+        run: (logger) => {
+            csp.go(function*() {
+                logger("Started loading...");
+
+                let movieChan = CSP.flatMapFrom(
+                    category => {
+                        return csp.operations.mapFrom(
+                            movie => [category, movie],
+                            CSP.getMoviesInCategory(category)
+                        );
+                    },
+                    CSP.getCategories()
+                );
+
+                let kvp;
+                while ((kvp = yield csp.take(movieChan)) !== csp.CLOSED) {
+                    logger(kvp[0] + ' - ' + kvp[1]);
                 }
 
                 logger("Loading finished.");
