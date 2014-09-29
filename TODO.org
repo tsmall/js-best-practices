@@ -1,4 +1,5 @@
-* TODO Generate example links dynamically
+* DONE Generate example links dynamically
+  CLOSED: [2014-09-28 Sun 21:15]
 * TODO Load the first example on page load
 * DONE Create a CSP example
   CLOSED: [2014-09-28 Sun 14:18]

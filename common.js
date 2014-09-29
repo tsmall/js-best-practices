@@ -7,6 +7,45 @@ let Movies = {
 
 let Example = {
 
+    /**
+     * createExampleLinks creates the sidebar links from the actual
+     * example code, hooking them up so clicking on one will load that
+     * example's code in the example runner.
+     */
+    createExampleLinks: function() {
+        let exampleSections = [
+            {title: 'FRP', helpers: window.FRP, examples: window.FRPExamples},
+            {title: 'CSP', helpers: window.CSP, examples: window.CSPExamples}
+        ];
+
+        let containers = exampleSections.map(exampleGroup => {
+            let section = document.createElement('div');
+
+            let header = document.createElement('h2');
+            header.innerHTML = exampleGroup.title;
+            section.appendChild(header);
+
+            let list = document.createElement('ul');
+            exampleGroup.examples.
+                map(ex => {
+                    let link = document.createElement('a');
+                    link.href = '#';
+                    link.innerHTML = ex.title;
+                    link.onclick = () => Example.load(exampleGroup.helpers, ex);
+
+                    let li = document.createElement('li');
+                    li.appendChild(link);
+                    return li;
+                }).
+                forEach(li => list.appendChild(li));
+            section.appendChild(list);
+            return section;
+        });
+
+        let sidebar = document.querySelector('aside');
+        containers.forEach(section => sidebar.appendChild(section));
+    },
+
     load: function(helpers, example) {
         let title = this._getElement('h1');
         title.innerHTML = example.title;

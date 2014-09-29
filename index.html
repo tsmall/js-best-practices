@@ -8,16 +8,7 @@
     <body>
         <aside>
             <h1>Examples</h1>
-
-            <h2>FRP</h2>
-            <ul>
-                <li><a href="#" onclick="Example.load(FRP, FRPExamples[0])">Example #1</a></li>
-            </ul>
-
-            <h2>CSP</h2>
-            <ul>
-                <li><a href="#" onclick="Example.load(CSP, CSPExamples[0])">Example #1</a></li>
-            </ul>
+            <!-- Links for examples will be automatically added here. -->
         </aside>
 
         <section class="example">
@@ -45,5 +36,8 @@
         <script src="common.js" type="application/javascript;version=1.7"></script>
         <script src="frp.js" type="application/javascript;version=1.7"></script>
         <script src="csp.js" type="application/javascript;version=1.7"></script>
+        <script type="application/javascript;version=1.7">
+            Example.createExampleLinks();
+        </script>
     </body>
 </html>
