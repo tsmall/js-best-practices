@@ -18,7 +18,7 @@ let FRP = {
 
 let FRPExamples = [
     {
-        title: "Get All Movies (FRP)",
+        title: "Get Movies (FRP)",
         run: (logger) => {
             FRP.getCategories().onValue(category => {
                 FRP.getMoviesInCategory(category).onValue(movie => {
@@ -28,9 +28,17 @@ let FRPExamples = [
         }
     },
     {
-        title: "Another Example",
+        title: "Get Movies with Indicator (FRP)",
         run: (logger) => {
-            logger("Just testing...");
+            logger("Started loading...");
+            let movieStream = FRP.getCategories().
+                flatMap(category => {
+                    return FRP.getMoviesInCategory(category).map(movie => {
+                        return [category, movie];
+                    });
+                });
+            movieStream.onValue(kvp => logger(kvp[0] + ' - ' + kvp[1]));
+            movieStream.onEnd(() => logger("Loading finished."));
         }
     }
 ];

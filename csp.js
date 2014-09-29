@@ -36,7 +36,7 @@ let CSP = {
 
 let CSPExamples = [
     {
-        title: "Get All Movies (CSP)",
+        title: "Get Movies (CSP)",
         run: (logger) => {
             csp.go(function*() {
                 let categoryChan = CSP.getCategories();
@@ -50,6 +50,38 @@ let CSPExamples = [
                         }
                     });
                 }
+            });
+        }
+    },
+    {
+        title: "Get Movies with Indicator (CSP)",
+        run: (logger) => {
+            csp.go(function*() {
+                logger("Starting loading...");
+
+                let categoryChan = CSP.getCategories();
+                let movieDoneSignals = [];
+                while (!categoryChan.closed) {
+                    let category = yield csp.take(categoryChan);
+
+                    let done = csp.chan();
+                    movieDoneSignals.push(done);
+                    csp.go(function*() {
+                        let movieChan = CSP.getMoviesInCategory(category);
+                        while (!movieChan.closed) {
+                            let movie = yield csp.take(movieChan);
+                            logger(category + ' - ' + movie);
+                        }
+                        done.close();
+                    });
+                }
+
+                let allDone = csp.operations.merge(movieDoneSignals);
+                while (!allDone.closed) {
+                    yield csp.take(allDone);
+                }
+
+                logger("Loading finished.");
             });
         }
     }
