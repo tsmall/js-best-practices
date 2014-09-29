@@ -9,4 +9,6 @@
   CLOSED: [2014-09-28 Sun 21:58]
 * DONE Allow toggling visibility of helpers
   CLOSED: [2014-09-29 Mon 00:16]
-* TODO Error handling example
+* TODO Create error handling example
+* TODO Create callback versions of examples
+* TODO Create promise/future versions of examples
