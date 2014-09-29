@@ -60,25 +60,26 @@ let CSPExamples = [
                 logger("Starting loading...");
 
                 let categoryChan = CSP.getCategories();
-                let movieDoneSignals = [];
+                let movieOutChans = [];
                 while (!categoryChan.closed) {
                     let category = yield csp.take(categoryChan);
-
-                    let done = csp.chan();
-                    movieDoneSignals.push(done);
+                    let out = csp.chan();
+                    movieOutChans.push(out);
                     csp.go(function*() {
                         let movieChan = CSP.getMoviesInCategory(category);
                         while (!movieChan.closed) {
                             let movie = yield csp.take(movieChan);
-                            logger(category + ' - ' + movie);
+                            let movieInfo = {category: category, movie: movie};
+                            yield csp.put(out, movieInfo);
                         }
-                        done.close();
+                        out.close();
                     });
                 }
 
-                let allDone = csp.operations.merge(movieDoneSignals);
-                while (!allDone.closed) {
-                    yield csp.take(allDone);
+                let movieChan = csp.operations.merge(movieOutChans);
+                let movieInfo;
+                while ((movieInfo = yield csp.take(movieChan)) !== csp.CLOSED) {
+                    logger(movieInfo.category + ' - ' + movieInfo.movie);
                 }
 
                 logger("Loading finished.");
