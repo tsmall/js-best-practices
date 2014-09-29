@@ -21,18 +21,15 @@ let Example = {
         examplePre.spellcheck = false;
         examplePre.innerHTML = this._fnToString(example.run, 8);
 
-        let outPre = this._getElement('.output');
-        let logger = this.log.bind(null, outPre);
-        let clearOutput = this.clear.bind(null, outPre);
-        clearOutput();
+        Logger.clear();
 
         let evalHelpers = this._evalCode.bind(this, helpersPre);
         let evalExample = this._evalCode.bind(this, examplePre);
         let button = this._getElement('button');
         button.onclick = () => {
-            clearOutput();
+            Logger.clear();
             evalHelpers();
-            evalExample()(logger);
+            evalExample()(Logger.log.bind(Logger));
         };
     },
 
@@ -75,14 +72,39 @@ let Example = {
         else {
             throw new Error("Unknown obj: " + obj);
         }
-    },
+    }
 
-    clear: function(outputElement) {
-        outputElement.innerHTML = '';
-    },
+};
 
-    log: function(outputElement, text) {
+/**
+ * Logger is an object for logging an example's output to the page.
+ */
+let Logger = {
+
+    /**
+     * log logs a text message to the output log.
+     */
+    log: function(text) {
+        let outputElement = this._getOutputElement();
         outputElement.innerHTML = outputElement.innerHTML + text + '<br>';
+    },
+
+    /**
+     * clear deletes all text in the output log, clearing it back to
+     * an empty state.
+     */
+    clear: function() {
+        this._getOutputElement().innerHTML = '';
+    },
+
+    /**
+     * _getOutputElement gets the HTML element Logger should log in.
+     */
+    _getOutputElement: function() {
+        if (!this._outputElement) {
+            this._outputElement = document.querySelector('.output');
+        }
+        return this._outputElement;
     }
 
 };
