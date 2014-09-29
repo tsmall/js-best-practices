@@ -7,5 +7,6 @@
   CLOSED: [2014-09-28 Sun 21:15]
 * DONE Fix removing all space from helpers after eval
   CLOSED: [2014-09-28 Sun 21:58]
-* TODO Allow toggling visibility of helpers
+* DONE Allow toggling visibility of helpers
+  CLOSED: [2014-09-29 Mon 00:16]
 * TODO Error handling example

@@ -221,3 +221,74 @@ let Sidebar = {
     }
 
 };
+
+/**
+ * Toggler is an object that controlls toggling an element between
+ * visible and hidden.  It works in concert with a clickable element,
+ * which must have a data-target attribute specifying the CSS selector
+ * of the element to toggle.
+ */
+let Toggler = {
+
+    /**
+     * init performs initialization for a newly cloned object made
+     * with Object.create.  It requires the clickable control element
+     * to be provided along with the text to use in the control for
+     * the "show" and "hide" actions.
+     */
+    init: function(clickableControl, hideText, showText) {
+        this._visible = true;
+        this._hideText = hideText;
+        this._showText = showText;
+
+        this._clickableControl = clickableControl;
+        this._setControlText();
+        this._addClickHandler();
+
+        this._target = document.querySelector(clickableControl.dataset.target);
+        this._originalDisplay = this._target.style.display;
+        return this;
+    },
+
+    /**
+     * toggle toggles between visible and hidden.
+     */
+    toggle: function() {
+        this._visible = !this._visible;
+        this._setVisibility();
+        this._setControlText();
+    },
+
+    /**
+     * _setVisibility sets the target element's visibility based on
+     * this object's current toggle state.
+     */
+    _setVisibility: function() {
+        this._visible
+            ? this._target.style.display = this._originalDisplay
+            : this._target.style.display = 'none';
+    },
+
+    /**
+     * _setControlText sets the clickable control element's text based
+     * on this object's current toggle state.
+     */
+    _setControlText: function() {
+        this._clickableControl.innerHTML = this._visible
+            ? this._hideText
+            : this._showText;
+    },
+
+    /**
+     * _addClickHandler sets up the clickable control element's click
+     * handler.
+     */
+    _addClickHandler: function() {
+        let self = this;
+        this._clickableControl.addEventListener('click', (event) => {
+            event.preventDefault();
+            self.toggle();
+        });
+    }
+
+};

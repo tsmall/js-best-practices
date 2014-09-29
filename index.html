@@ -15,6 +15,7 @@
             <h1></h1>
             <div>
                 Helpers
+                [<a href="#" class="toggler" data-target=".code-helpers"></a>]
                 <pre class="code-helpers"></pre>
             </div>
             <div>
@@ -38,6 +39,10 @@
         <script src="csp.js" type="application/javascript;version=1.7"></script>
         <script type="application/javascript;version=1.7">
             Sidebar.init();
+            let toggler = Object.create(Toggler).init(
+                document.querySelector('.toggler'),
+                '-', '+'
+            );
         </script>
     </body>
 </html>
