@@ -31,7 +31,10 @@ let Example = {
                     let link = document.createElement('a');
                     link.href = '#';
                     link.innerHTML = ex.title;
-                    link.onclick = () => Example.load(exampleGroup.helpers, ex);
+                    link.onclick = (event) => {
+                        event.preventDefault();
+                        Example.load(exampleGroup.helpers, ex);
+                    };
 
                     let li = document.createElement('li');
                     li.appendChild(link);
