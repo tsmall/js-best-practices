@@ -14,6 +14,11 @@ old.  This repository contains examples for exploring asynchronous
 programming in four styles:
 
 * Plain callbacks (for comparison)
-* Futures / promises
-* Functional Reactive Programming (FRP) and Rx
-* Communicating Sequential Processes (CSP) and core.async
+* Futures / promises via [q][]
+* Functional Reactive Programming (FRP) via [Bacon.js][]
+* Communicating Sequential Processes (CSP) via [js-csp][]
+
+
+[bacon.js]: http://baconjs.github.io
+[js-csp]: https://github.com/jlongster/js-csp
+[q]: http://documentup.com/kriskowal/q/
