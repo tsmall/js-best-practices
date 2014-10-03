@@ -251,6 +251,10 @@ let Toggler = {
 
         this._target = document.querySelector(clickableControl.dataset.target);
         this._originalDisplay = this._target.style.display;
+
+        // Start with the toggler hidden.
+        this.toggle();
+
         return this;
     },
 
