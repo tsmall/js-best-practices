@@ -5,7 +5,10 @@ var Random = window.Random;
 let Promises = {
 
     getCategories: () => Q.Promise((resolve, reject, notify) => {
-        window.setTimeout(() => resolve(Movies.categories), Random.milliseconds());
+        window.setTimeout(
+            () => resolve(Movies.categories),
+            Random.milliseconds()
+        );
     }),
 
     getMoviesInCategory: (category) => Q.Promise((resolve, reject, notify) => {
@@ -32,6 +35,24 @@ let PromiseExamples = [
                         });
                     });
                 });
+            });
+        }
+    },
+    {
+        title: "Get Movies with Indicator (Promises)",
+        run: (logger) => {
+            logger("Started loading...");
+
+            Promises.getCategories().then(categories => {
+                let moviePromises = categories.map(category => {
+                    return Promises.getMoviesInCategory(category).then(movies => {
+                        movies.forEach(movie => {
+                            logger(category + ' - ' + movie);
+                        });
+                    });
+                });
+
+                Q.all(moviePromises).then(() => logger("Loading finished."));
             });
         }
     }
