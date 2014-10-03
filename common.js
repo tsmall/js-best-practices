@@ -102,7 +102,10 @@ let Example = {
     },
 
     _getObjName: function(obj) {
-        if (obj === window.FRP) {
+        if (obj === window.Promises) {
+            return 'Promises';
+        }
+        else if (obj === window.FRP) {
             return 'FRP';
         }
         else if (obj === window.CSP) {
@@ -154,12 +157,13 @@ let Logger = {
 let Sidebar = {
 
     /**
-     * init creates the sidebar links from the actual
-     * example code, hooking them up so clicking on one will load that
-     * example's code in the example runner.
+     * init creates the sidebar links from the actual example code,
+     * hooking them up so clicking on one will load that example's
+     * code in the example runner.
      */
     init: function() {
         let exampleSections = [
+            {title: 'Promises', helpers: window.Promises, examples: window.PromiseExamples},
             {title: 'FRP', helpers: window.FRP, examples: window.FRPExamples},
             {title: 'CSP', helpers: window.CSP, examples: window.CSPExamples}
         ];
@@ -290,5 +294,17 @@ let Toggler = {
             self.toggle();
         });
     }
+
+};
+
+/**
+ * Random is an object that provides random numbers.
+ */
+let Random = {
+
+    /**
+     * Get a random number of milliseconds, from 0 to 1000.
+     */
+    milliseconds: () => Math.round(Math.random() * 1000, 0)
 
 };
