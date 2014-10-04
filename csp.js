@@ -147,5 +147,50 @@ let CSPExamples = [
                 logger("Loading finished.");
             });
         }
+    },
+    {
+        title: "Get Movies with Timeout (CSP)",
+        run: (logger) => {
+            csp.go(function*() {
+                logger("Started loading...");
+
+                let movieChan = CSP.flatMapFrom(
+                    category => {
+                        let out = csp.chan();
+                        csp.go(function*() {
+                            let movieChan = csp.operations.mapFrom(
+                                movie => [category, movie],
+                                CSP.getMoviesInCategory(category)
+                            );
+                            let timeoutChan = csp.timeout(500);
+
+                            while (true) {
+                                let result = yield csp.alts([movieChan, timeoutChan]);
+                                if (result.channel === movieChan) {
+                                    if (result.value === csp.CLOSED) break;
+                                    yield csp.put(out, result.value);
+                                }
+                                else {
+                                    logger(category + ' - Timed out!');
+                                    break;
+                                }
+                            }
+                            out.close();
+                        });
+                        return out;
+                    },
+                    CSP.getCategories()
+                );
+
+                while (true) {
+                    let kvp = yield csp.take(movieChan);
+                    if (kvp === csp.CLOSED) break;
+
+                    logger(kvp[0] + ' - ' + kvp[1]);
+                }
+
+                logger("Loading finished.");
+            });
+        }
     }
 ];

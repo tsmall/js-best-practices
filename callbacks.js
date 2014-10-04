@@ -40,15 +40,46 @@ let CallbackExamples = [
             logger("Started loading...");
 
             Callbacks.getCategories(categories => {
-                let numCategoriesRemaining = categories.length;
+                let numRequestsRemaining = categories.length;
                 categories.forEach(category => {
                     Callbacks.getMoviesInCategory(category, movies => {
                         movies.forEach(movie => {
                             logger(category + ' - ' + movie);
                         });
 
-                        numCategoriesRemaining--;
-                        if (numCategoriesRemaining === 0) {
+                        numRequestsRemaining--;
+                        if (numRequestsRemaining === 0) {
+                            logger("Loading finished.");
+                        }
+                    });
+                });
+            });
+        }
+    },
+    {
+        title: "Get Movies with Timeout (Callbacks)",
+        run: (logger) => {
+            logger("Started loading...");
+
+            Callbacks.getCategories(categories => {
+                let numRequestsRemaining = categories.length;
+                categories.forEach(category => {
+                    // Wait up to 0.5 seconds for the response.
+                    let timedOut = false;
+                    window.setTimeout(() => timedOut = true, 500);
+
+                    Callbacks.getMoviesInCategory(category, movies => {
+                        if (timedOut) {
+                            logger(category + ' - Timed out!');
+                        }
+                        else {
+                            movies.forEach(movie => {
+                                logger(category + ' - ' + movie);
+                            });
+                        }
+
+                        numRequestsRemaining--;
+                        if (numRequestsRemaining === 0) {
                             logger("Loading finished.");
                         }
                     });

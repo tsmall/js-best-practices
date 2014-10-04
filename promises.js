@@ -54,5 +54,31 @@ let PromiseExamples = [
                 Q.all(moviePromises).then(() => logger("Loading finished."));
             });
         }
+    },
+    {
+        title: "Get Movies with Timeout (Promises)",
+        run: (logger) => {
+            logger("Started loading...");
+
+            Promises.getCategories().then(categories => {
+                let moviePromises = categories.map(category => {
+                    let moviePromise = Q.timeout(
+                        Promises.getMoviesInCategory(category),
+                        500
+                    );
+                    return moviePromise.
+                        then(movies => {
+                            movies.forEach(movie => {
+                                logger(category + ' - ' + movie);
+                            });
+                        }).
+                        fail(error => {
+                            logger(category + ' - Timed out!');
+                        });
+                });
+
+                Q.all(moviePromises).then(() => logger("Loading finished."));
+            });
+        }
     }
 ];
