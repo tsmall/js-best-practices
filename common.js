@@ -103,6 +103,7 @@ let Example = {
 
     _getObjName: function(obj) {
         switch (obj) {
+        case window.Intro:     return 'Intro';
         case window.Callbacks: return 'Callbacks';
         case window.FP:        return 'FP';
         case window.Promises:  return 'Promises';
@@ -160,6 +161,7 @@ let Sidebar = {
     init: function() {
         let w = window;
         let exampleSections = [
+            {title: 'Intro', helpers: w.Intro, examples: w.IntroExamples},
             {title: 'Callbacks', helpers: w.Callbacks, examples: w.CallbackExamples},
             {title: 'FP', helpers: w.FP, examples: w.FPExamples},
             {title: 'Promises', helpers: w.Promises, examples: w.PromiseExamples},
