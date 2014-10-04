@@ -1,6 +1,7 @@
 "use strict";
 
 let Movies = window.Movies;
+let Random = window.Random;
 let csp = require('csp');
 
 let CSP = {
@@ -8,8 +9,9 @@ let CSP = {
     getCategories: () => {
         let out = csp.chan();
         csp.go(function*() {
+            yield csp.take(csp.timeout(Random.milliseconds()));
+
             for (let category of Movies.categories) {
-                yield csp.take(csp.timeout(500));
                 yield csp.put(out, category);
             }
             out.close();
@@ -20,9 +22,10 @@ let CSP = {
     getMoviesInCategory: (category) => {
         let out = csp.chan();
         csp.go(function*() {
+            yield csp.take(csp.timeout(Random.milliseconds()));
+
             let movies = Movies.getMoviesInCategory(category);
             for (let movie of movies) {
-                yield csp.take(csp.timeout(1000));
                 yield csp.put(out, movie);
             }
             out.close();
@@ -62,12 +65,16 @@ let CSPExamples = [
         run: (logger) => {
             csp.go(function*() {
                 let categoryChan = CSP.getCategories();
-                while (!categoryChan.closed) {
+                while (true) {
                     let category = yield csp.take(categoryChan);
+                    if (category === csp.CLOSED) break;
+
                     csp.go(function*() {
                         let movieChan = CSP.getMoviesInCategory(category);
-                        while (!movieChan.closed) {
+                        while (true) {
                             let movie = yield csp.take(movieChan);
+                            if (movie === csp.CLOSED) break;
+
                             logger(category + ' - ' + movie);
                         }
                     });
@@ -83,14 +90,18 @@ let CSPExamples = [
 
                 let categoryChan = CSP.getCategories();
                 let movieOutChans = [];
-                while (!categoryChan.closed) {
+                while (true) {
                     let category = yield csp.take(categoryChan);
+                    if (category === csp.CLOSED) break;
+
                     let out = csp.chan();
                     movieOutChans.push(out);
                     csp.go(function*() {
                         let movieChan = CSP.getMoviesInCategory(category);
-                        while (!movieChan.closed) {
+                        while (true) {
                             let movie = yield csp.take(movieChan);
+                            if (movie === csp.CLOSED) break;
+
                             let movieInfo = {category: category, movie: movie};
                             yield csp.put(out, movieInfo);
                         }
@@ -99,8 +110,10 @@ let CSPExamples = [
                 }
 
                 let movieChan = csp.operations.merge(movieOutChans);
-                let movieInfo;
-                while ((movieInfo = yield csp.take(movieChan)) !== csp.CLOSED) {
+                while (true) {
+                    let movieInfo = yield csp.take(movieChan);
+                    if (movieInfo === csp.CLOSED) break;
+
                     logger(movieInfo.category + ' - ' + movieInfo.movie);
                 }
 
@@ -124,8 +137,10 @@ let CSPExamples = [
                     CSP.getCategories()
                 );
 
-                let kvp;
-                while ((kvp = yield csp.take(movieChan)) !== csp.CLOSED) {
+                while (true) {
+                    let kvp = yield csp.take(movieChan);
+                    if (kvp === csp.CLOSED) break;
+
                     logger(kvp[0] + ' - ' + kvp[1]);
                 }
 

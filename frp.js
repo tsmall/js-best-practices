@@ -3,14 +3,33 @@
 let Bacon = window.Bacon;
 let Example = window.Example;
 let Movies = window.Movies;
+let Random = window.Random;
 
 let FRP = {
 
-    getCategories: () => Bacon.sequentially(500, Movies.categories),
+    getCategories: () => {
+        let bus = new Bacon.Bus();
+        window.setTimeout(
+            () => {
+                bus.plug(Bacon.fromArray(Movies.categories));
+                bus.end();
+            },
+            Random.milliseconds()
+        );
+        return bus;
+    },
 
     getMoviesInCategory: (category) => {
-        let movies = Movies.getMoviesInCategory(category);
-        return Bacon.sequentially(1000, movies);
+        let bus = new Bacon.Bus();
+        window.setTimeout(
+            () => {
+                let movies = Movies.getMoviesInCategory(category);
+                bus.plug(Bacon.fromArray(movies));
+                bus.end();
+            },
+            Random.milliseconds()
+        );
+        return bus;
     }
 
 };
