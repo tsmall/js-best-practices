@@ -102,17 +102,12 @@ let Example = {
     },
 
     _getObjName: function(obj) {
-        if (obj === window.Promises) {
-            return 'Promises';
-        }
-        else if (obj === window.FRP) {
-            return 'FRP';
-        }
-        else if (obj === window.CSP) {
-            return 'CSP';
-        }
-        else {
-            throw new Error("Unknown obj: " + obj);
+        switch (obj) {
+        case window.FP:       return 'FP';
+        case window.Promises: return 'Promises';
+        case window.FRP:      return 'FRP';
+        case window.CSP:      return 'CSP';
+        default:              throw new Error("Unknown obj: " + obj);
         }
     }
 
@@ -163,6 +158,7 @@ let Sidebar = {
      */
     init: function() {
         let exampleSections = [
+            {title: 'FP', helpers: window.FP, examples: window.FPExamples},
             {title: 'Promises', helpers: window.Promises, examples: window.PromiseExamples},
             {title: 'FRP', helpers: window.FRP, examples: window.FRPExamples},
             {title: 'CSP', helpers: window.CSP, examples: window.CSPExamples}
