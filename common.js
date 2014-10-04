@@ -103,11 +103,12 @@ let Example = {
 
     _getObjName: function(obj) {
         switch (obj) {
-        case window.FP:       return 'FP';
-        case window.Promises: return 'Promises';
-        case window.FRP:      return 'FRP';
-        case window.CSP:      return 'CSP';
-        default:              throw new Error("Unknown obj: " + obj);
+        case window.Callbacks: return 'Callbacks';
+        case window.FP:        return 'FP';
+        case window.Promises:  return 'Promises';
+        case window.FRP:       return 'FRP';
+        case window.CSP:       return 'CSP';
+        default:               throw new Error("Unknown obj: " + obj);
         }
     }
 
@@ -157,11 +158,13 @@ let Sidebar = {
      * code in the example runner.
      */
     init: function() {
+        let w = window;
         let exampleSections = [
-            {title: 'FP', helpers: window.FP, examples: window.FPExamples},
-            {title: 'Promises', helpers: window.Promises, examples: window.PromiseExamples},
-            {title: 'FRP', helpers: window.FRP, examples: window.FRPExamples},
-            {title: 'CSP', helpers: window.CSP, examples: window.CSPExamples}
+            {title: 'Callbacks', helpers: w.Callbacks, examples: w.CallbackExamples},
+            {title: 'FP', helpers: w.FP, examples: w.FPExamples},
+            {title: 'Promises', helpers: w.Promises, examples: w.PromiseExamples},
+            {title: 'FRP', helpers: w.FRP, examples: w.FRPExamples},
+            {title: 'CSP', helpers: w.CSP, examples: w.CSPExamples}
         ];
 
         let containers = exampleSections.map(this._createExampleSection.bind(this));
