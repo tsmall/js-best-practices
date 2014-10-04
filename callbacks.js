@@ -10,10 +10,7 @@ let Callbacks = {
 
     getMoviesInCategory: (category, callback) => {
         window.setTimeout(() => {
-            let movies = [];
-            if (category === "Action") movies = Movies.actionMovies;
-            if (category === "Drama") movies = Movies.dramaMovies;
-            if (category === "Horror") movies = Movies.horrorMovies;
+            let movies = Movies.getMoviesInCategory(category);
             callback(movies);
         }, Random.milliseconds());
     }

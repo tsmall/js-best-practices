@@ -7,10 +7,7 @@ let FRP = {
     getCategories: () => Bacon.sequentially(500, Movies.categories),
 
     getMoviesInCategory: (category) => {
-        let movies = [];
-        if (category === "Action") movies = Movies.actionMovies;
-        if (category === "Drama") movies = Movies.dramaMovies;
-        if (category === "Horror") movies = Movies.horrorMovies;
+        let movies = Movies.getMoviesInCategory(category);
         return Bacon.sequentially(1000, movies);
     }
 

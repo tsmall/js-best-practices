@@ -18,11 +18,7 @@ let CSP = {
     getMoviesInCategory: (category) => {
         let out = csp.chan();
         csp.go(function*() {
-            let movies = [];
-            if (category === "Action") movies = Movies.actionMovies;
-            if (category === "Drama") movies = Movies.dramaMovies;
-            if (category === "Horror") movies = Movies.horrorMovies;
-
+            let movies = Movies.getMoviesInCategory(category);
             for (let movie of movies) {
                 yield csp.take(csp.timeout(1000));
                 yield csp.put(out, movie);

@@ -1,8 +1,17 @@
 let Movies = {
     categories: ["Action", "Drama", "Horror"],
+
     actionMovies: ["300", "Sin City"],
     dramaMovies: ["Eyes Wide Shut", "Saving Private Ryan"],
-    horrorMovies: ["The Ring", "The Conjuring"]
+    horrorMovies: ["The Ring", "The Conjuring"],
+
+    getMoviesInCategory: category => {
+        let movies = [];
+        if (category === "Action") movies = Movies.actionMovies;
+        if (category === "Drama") movies = Movies.dramaMovies;
+        if (category === "Horror") movies = Movies.horrorMovies;
+        return movies;
+    }
 };
 
 let Example = {

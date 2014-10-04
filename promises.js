@@ -13,10 +13,7 @@ let Promises = {
 
     getMoviesInCategory: (category) => Q.Promise((resolve, reject, notify) => {
         window.setTimeout(() => {
-            let movies = [];
-            if (category === "Action") movies = Movies.actionMovies;
-            if (category === "Drama") movies = Movies.dramaMovies;
-            if (category === "Horror") movies = Movies.horrorMovies;
+            let movies = Movies.getMoviesInCategory(category);
             resolve(movies);
         }, Random.milliseconds());
     })
