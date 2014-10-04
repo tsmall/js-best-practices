@@ -1,3 +1,5 @@
+"use strict";
+
 var Movies = window.Movies;
 var Q = window.Q;
 var Random = window.Random;

@@ -1,3 +1,5 @@
+"use strict";
+
 let Movies = window.Movies;
 
 let Intro = {

@@ -1,3 +1,5 @@
+"use strict";
+
 let Bacon = window.Bacon;
 let Example = window.Example;
 let Movies = window.Movies;
