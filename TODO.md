@@ -1,9 +1,9 @@
 # To Do
 
-- [ ] Load the first example on page load
-- [ ] Create error handling example
-- [ ] Create callback versions of examples
-- [ ] Finish the design
+- [ ] Create error handling examples
+- [ ] Create examples that merge requests with user interactions
+- [ ] Create pagination examples
+- [ ] Finish the UI design
 
 # Done
 
@@ -13,3 +13,5 @@
 - [x] Fix removing all space from helpers after eval
 - [x] Allow toggling visibility of helpers
 - [x] Create promise/future versions of examples
+- [x] Create callback versions of examples
+- [x] Create "take until timeout" examples
