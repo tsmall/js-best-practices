@@ -5,6 +5,24 @@ let Example = window.Example;
 let Movies = window.Movies;
 let Random = window.Random;
 
+Bacon.EventStream.prototype.defaultIfEmpty = function(defaultValue) {
+    let stream = this;
+    return Bacon.fromBinder(sink => {
+        let gotValue = false;
+        stream.subscribe(event => {
+            if (event.hasValue()) {
+                gotValue = true;
+            }
+
+            if (event.isEnd() && !gotValue) {
+                sink(new Bacon.Next(defaultValue));
+            }
+
+            sink(event);
+        });
+    });
+};
+
 let FRP = {
 
     getCategories: () => {
@@ -55,10 +73,9 @@ let FRPExamples = [
             let movieStream = FRP.getCategories().flatMap(category => {
                 return FRP.getMoviesInCategory(category).
                     takeUntil(Bacon.later(500, null)).
-                    map(movie => [category, movie]);
+                    map(movie => [category, movie]).
+                    defaultIfEmpty([category, 'Timed out!']);
             });
-
-            // TODO: Log when the timeout happens.
 
             movieStream.onValue(kvp => logger(kvp[0] + ' - ' + kvp[1]));
             movieStream.onEnd(() => logger("Loading finished."));
