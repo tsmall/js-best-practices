@@ -120,6 +120,7 @@ let Example = {
         case window.Promises:  return 'Promises';
         case window.FRP:       return 'FRP';
         case window.RxFRP:     return 'RxFRP';
+        case window.GenHelp:   return 'GenHelp';
         case window.CSP:       return 'CSP';
         default:               throw new Error("Unknown obj: " + obj);
         }
@@ -179,6 +180,7 @@ let Sidebar = {
             {title: 'Promises', helpers: w.Promises, examples: w.PromiseExamples},
             {title: 'FRP', helpers: w.FRP, examples: w.FRPExamples},
             {title: 'RxFRP', helpers: w.RxFRP, examples: w.RxExamples},
+            {title: 'Generators', helpers: w.GenHelp, examples: w.GenExamples},
             {title: 'CSP', helpers: w.CSP, examples: w.CSPExamples}
         ];
 
