@@ -114,15 +114,16 @@ let Example = {
 
     _getObjName: function(obj) {
         switch (obj) {
-        case window.Intro:     return 'Intro';
+        case window.ES6Intro: return 'Intro to ES6';
+        case window.Intro: return 'Intro';
         case window.Callbacks: return 'Callbacks';
-        case window.FP:        return 'FP';
-        case window.Promises:  return 'Promises';
-        case window.FRP:       return 'FRP';
-        case window.RxFRP:     return 'RxFRP';
-        case window.GenHelp:   return 'GenHelp';
-        case window.CSP:       return 'CSP';
-        default:               throw new Error("Unknown obj: " + obj);
+        case window.FP: return 'FP';
+        case window.Promises: return 'Promises';
+        case window.FRP: return 'FRP';
+        case window.RxFRP: return 'RxFRP';
+        case window.GenHelp: return 'GenHelp';
+        case window.CSP: return 'CSP';
+        default: throw new Error("Unknown obj: " + obj);
         }
     }
 
@@ -174,7 +175,8 @@ let Sidebar = {
     init: function() {
         let w = window;
         let exampleSections = [
-            {title: 'Intro', helpers: w.Intro, examples: w.IntroExamples},
+            {title: 'Intro to ES6', helpers: w.ES6Intro, examples: w.ES6IntroExamples},
+            {title: 'Example data', helpers: w.Intro, examples: w.IntroExamples},
             {title: 'Callbacks', helpers: w.Callbacks, examples: w.CallbackExamples},
             {title: 'FP', helpers: w.FP, examples: w.FPExamples},
             {title: 'Promises', helpers: w.Promises, examples: w.PromiseExamples},
