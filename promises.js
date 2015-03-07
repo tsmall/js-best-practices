@@ -6,6 +6,20 @@ var Random = window.Random;
 
 let Promises = {
 
+    callbackAdd: (x, y, callback) => {
+        window.setTimeout(
+            () => callback(x + y),
+            Random.milliseconds()
+        );
+    },
+
+    promiseAdd: (x, y) => Q.Promise((resolve, reject, notify) => {
+        window.setTimeout(
+            () => resolve(x + y),
+            Random.milliseconds()
+        );
+    }),
+
     getCategories: () => Q.Promise((resolve, reject, notify) => {
         window.setTimeout(
             () => resolve(Movies.categories),
@@ -23,6 +37,19 @@ let Promises = {
 };
 
 let PromiseExamples = [
+    {
+        title: "Intro to Promises",
+        run: (logger) => {
+            Promises.callbackAdd(1, 1, result => {
+                logger("1 + 1 = " + result);
+            });
+
+            let promisedResult = Promises.promiseAdd(1, 1);
+            promisedResult.then(result => {
+                logger("1 + 1 = " + result);
+            });
+        }
+    },
     {
         title: "Get Movies (Promises)",
         run: (logger) => {
