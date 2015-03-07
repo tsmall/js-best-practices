@@ -114,7 +114,7 @@ let Example = {
 
     _getObjName: function(obj) {
         switch (obj) {
-        case window.ES6Intro: return 'Intro to ES6';
+        case window.ES6Intro: return 'ES6Intro';
         case window.Intro: return 'Intro';
         case window.Callbacks: return 'Callbacks';
         case window.FP: return 'FP';
