@@ -15,7 +15,7 @@ let FP = {
 
     flatten: nestedArray => {
         return nestedArray.reduce(
-            (result, arr) => result.concat(arr),
+            (accumulator, array) => accumulator.concat(array),
             []
         );
     },
@@ -49,8 +49,8 @@ let FPExamples = [
                 {category: 'Horror', numFavs: 19}
             ];
 
-            let totalFavs = favorites.reduce((total, each) => {
-                return total + each.numFavs;
+            let totalFavs = favorites.reduce((accumulator, each) => {
+                return accumulator + each.numFavs;
             }, 0);
 
             logger("Total Number of Favorites: " + totalFavs);
