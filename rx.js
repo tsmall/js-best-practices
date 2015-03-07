@@ -22,49 +22,67 @@ let RxFRP = {
 
 let RxExamples = [
     {
-        title: "Get Movies (RxFRP)",
+        title: "Get Movies (Rx)",
         run: (logger) => {
-            let obs = RxFRP.getCategories().flatMap(category => {
-                return RxFRP.getMoviesInCategory(category).map(movie => {
-                    return [category, movie];
+            RxFRP.getCategories().subscribe(category => {
+                RxFRP.getMoviesInCategory(category).subscribe(movie => {
+                    logger(category + " - " + movie);
                 });
             });
-
-            obs.subscribe(kvp => logger(kvp[0] + ' - ' + kvp[1]));
         }
     },
     {
-        title: "Get Movies with Indicator (RxFRP)",
+        title: "Get Movies, Rx-style (Rx)",
         run: (logger) => {
-            logger("Started loading...");
-
-            let obs = RxFRP.getCategories().flatMap(category => {
+            let movieStream = RxFRP.getCategories().flatMap(category => {
                 return RxFRP.getMoviesInCategory(category).map(movie => {
-                    return [category, movie];
+                    return {
+                        category: category,
+                        name: movie
+                    };
                 });
             });
 
-            obs.subscribe(
-                kvp => logger(kvp[0] + ' - ' + kvp[1]),
+            movieStream.subscribe(movie => {
+                logger(movie.category + ' - ' + movie.name);
+            });
+        }
+    },
+    {
+        title: "Get Movies with Indicator (Rx)",
+        run: (logger) => {
+            logger("Started loading...");
+
+            let movieStream = RxFRP.getCategories().flatMap(category => {
+                return RxFRP.getMoviesInCategory(category).map(movie => {
+                    return {
+                        category: category,
+                        name: movie
+                    };
+                });
+            });
+
+            movieStream.subscribe(
+                movie => logger(movie.category + ' - ' + movie.name),
                 null,
                 () => logger("Loading finished.")
             );
         }
     },
     {
-        title: "Get Movies with Timeout (RxFRP)",
+        title: "Get Movies with Timeout (Rx)",
         run: (logger) => {
             logger("Started loading...");
 
-            let obs = RxFRP.getCategories().flatMap(category => {
+            let movieStream = RxFRP.getCategories().flatMap(category => {
                 return RxFRP.getMoviesInCategory(category).
-                    map(movie => [category, movie]).
+                    map(movie => { return {category: category, name: movie} }).
                     takeUntil(Rx.Observable.timer(500)).
-                    defaultIfEmpty([category, 'Timed out!']);
+                    defaultIfEmpty({category: category, name: 'Timed out!'});
             });
 
-            obs.subscribe(
-                kvp => logger(kvp[0] + ' - ' + kvp[1]),
+            movieStream.subscribe(
+                movie => logger(movie.category + ' - ' + movie.name),
                 null,
                 () => logger("Loading finished.")
             );

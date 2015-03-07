@@ -23,7 +23,7 @@ Bacon.EventStream.prototype.defaultIfEmpty = function(defaultValue) {
     });
 };
 
-let FRP = {
+let BaconFRP = {
 
     getCategories: () => {
         return Bacon.
@@ -39,9 +39,9 @@ let FRP = {
 
 };
 
-let FRPExamples = [
+let BaconExamples = [
     {
-        title: "Get Movies (FRP)",
+        title: "Get Movies (Bacon)",
         run: (logger) => {
             FRP.getCategories().onValue(category => {
                 FRP.getMoviesInCategory(category).onValue(movie => {
@@ -51,7 +51,7 @@ let FRPExamples = [
         }
     },
     {
-        title: "Get Movies with Indicator (FRP)",
+        title: "Get Movies with Indicator (Bacon)",
         run: (logger) => {
             logger("Started loading...");
 
@@ -66,7 +66,7 @@ let FRPExamples = [
         }
     },
     {
-        title: "Get Movies with Timeout (FRP)",
+        title: "Get Movies with Timeout (Bacon)",
         run: (logger) => {
             logger("Started loading...");
 

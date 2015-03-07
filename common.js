@@ -130,10 +130,10 @@ let Example = {
         case window.Callbacks: return 'Callbacks';
         case window.FP: return 'FP';
         case window.Promises: return 'Promises';
-        case window.FRP: return 'FRP';
         case window.RxFRP: return 'RxFRP';
         case window.GenHelp: return 'GenHelp';
         case window.CSP: return 'CSP';
+        case window.BaconFRP: return 'BaconFRP';
         default: throw new Error("Unknown obj: " + obj);
         }
     }
@@ -191,10 +191,10 @@ let Sidebar = {
             {title: 'Callbacks', helpers: w.Callbacks, examples: w.CallbackExamples},
             {title: 'FP', helpers: w.FP, examples: w.FPExamples},
             {title: 'Promises', helpers: w.Promises, examples: w.PromiseExamples},
-            {title: 'FRP', helpers: w.FRP, examples: w.FRPExamples},
-            {title: 'RxFRP', helpers: w.RxFRP, examples: w.RxExamples},
+            {title: 'Rx', helpers: w.RxFRP, examples: w.RxExamples},
             {title: 'Generators', helpers: w.GenHelp, examples: w.GenExamples},
-            {title: 'CSP', helpers: w.CSP, examples: w.CSPExamples}
+            {title: 'CSP', helpers: w.CSP, examples: w.CSPExamples},
+            {title: 'Bacon', helpers: w.BaconFRP, examples: w.BaconExamples}
         ];
 
         let containers = exampleSections.map(this._createExampleSection.bind(this));
