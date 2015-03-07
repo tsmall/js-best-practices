@@ -20,7 +20,7 @@ let FP = {
         );
     },
 
-    flatMap: (array, fn) => FP.flatten(array.map(fn))
+    flatMap: (fn, array) => FP.flatten(array.map(fn))
 };
 
 let FPExamples = [
@@ -66,7 +66,7 @@ let FPExamples = [
     {
         title: "FlatMap (Part 2)",
         run: (logger) => {
-            let movies = FP.flatMap(Movies.categories, FP.getMoviesInCategory);
+            let movies = FP.flatMap(FP.getMoviesInCategory, Movies.categories);
             logger("Movies: " + JSON.stringify(movies));
         }
     }
