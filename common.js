@@ -243,6 +243,7 @@ let Sidebar = {
                 link.onclick = (event) => {
                     event.preventDefault();
                     Example.load(helpers, ex);
+                    window.scrollTo(0, 0);
                 };
 
                 let li = document.createElement('li');
