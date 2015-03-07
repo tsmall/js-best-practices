@@ -62,11 +62,9 @@ let PromiseExamples = [
 
             Promises.getCategories().then(categories => {
                 let moviePromises = categories.map(category => {
-                    let moviePromise = Q.timeout(
-                        Promises.getMoviesInCategory(category),
-                        500
-                    );
-                    return moviePromise.
+                    return Promises.
+                        getMoviesInCategory(category).
+                        timeout(500).
                         then(movies => {
                             movies.forEach(movie => {
                                 logger(category + ' - ' + movie);
