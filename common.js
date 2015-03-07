@@ -18,24 +18,33 @@ let Movies = {
 
 let Example = {
 
+    helpersEditor: null,
+    exampleEditor: null,
+
+    init: function() {
+        this.helpersEditor = ace.edit('helpers-editor');
+        this.helpersEditor.setTheme("ace/theme/solarized_light");
+        this.helpersEditor.getSession().setMode("ace/mode/javascript");
+
+        this.exampleEditor = ace.edit('example-editor');
+        this.exampleEditor.setTheme("ace/theme/solarized_light");
+        this.exampleEditor.getSession().setMode("ace/mode/javascript");
+    },
+
     load: function(helpers, example) {
         let title = this._getElement('h1');
         title.innerHTML = example.title;
 
-        let helpersPre = this._getElement('.code-helpers');
-        helpersPre.contentEditable = true;
-        helpersPre.spellcheck = false;
-        helpersPre.innerHTML = this._objToString(helpers);
+        this.helpersEditor.setValue(this._objToString(helpers));
+        this.helpersEditor.navigateTo(0, 0);
 
-        let examplePre = this._getElement('.code-example');
-        examplePre.contentEditable = true;
-        examplePre.spellcheck = false;
-        examplePre.innerHTML = this._fnToString(example.run);
+        this.exampleEditor.setValue(this._fnToString(example.run));
+        this.exampleEditor.navigateTo(0, 0);
 
         Logger.clear();
 
-        let evalHelpers = this._evalCode.bind(this, helpersPre);
-        let evalExample = this._evalCode.bind(this, examplePre);
+        let evalHelpers = this._evalCode.bind(this, this.helpersEditor);
+        let evalExample = this._evalCode.bind(this, this.exampleEditor);
         let button = this._getElement('button');
         button.onclick = () => {
             Logger.clear();
@@ -44,11 +53,13 @@ let Example = {
         };
     },
 
-    _evalCode: function(codePre) {
-        let code = codePre.innerHTML.
-                replace(/&gt;/g, '>').
-                replace(/<br>/g, '\n').
-                replace(/&nbsp;/g, ' ');
+    refreshEditors: function() {
+        this.helpersEditor.resize();
+        this.exampleEditor.resize();
+    },
+
+    _evalCode: function(editor) {
+        let code = editor.getValue();
         return eval(code);
     },
 
@@ -270,6 +281,8 @@ let Toggler = {
         this._target = document.querySelector(clickableControl.dataset.target);
         this._originalDisplay = this._target.style.display;
 
+        this._onVisibleCallback = null;
+
         // Start with the toggler hidden.
         this.toggle();
 
@@ -283,6 +296,13 @@ let Toggler = {
         this._visible = !this._visible;
         this._setVisibility();
         this._setControlText();
+
+        if (this._visible && this._onVisibleCallback)
+            this._onVisibleCallback();
+    },
+
+    onVisible: function(callback) {
+        this._onVisibleCallback = callback;
     },
 
     /**

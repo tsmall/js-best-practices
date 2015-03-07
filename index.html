@@ -13,19 +13,18 @@
         <section class="example">
             <h1></h1>
             <div>
-                Helpers
-                [<a href="#" class="toggler" data-target=".code-helpers"></a>]
-                <pre class="code-helpers"></pre>
+                <h3>Helpers [<a href="#" class="toggler" data-target="#helpers-editor"></a>]</h3>
+                <div id="helpers-editor" class="editor"></div>
             </div>
             <div>
-                Example
-                <pre class="code-example"></pre>
-            </div>
-            <div>
-                 Output
-                 <pre class="output"></pre>
+                <h3>Example</h3>
+                <div id="example-editor" class="editor"></div>
             </div>
             <button>Run</button>
+            <div>
+                 <h3>Output</h3>
+                 <pre class="output"></pre>
+            </div>
         </section>
 
         <!-- Libraries -->
@@ -33,6 +32,9 @@
         <script src="lib/csp.bundled.js"></script>
         <script src="lib/q.js"></script>
         <script src="lib/rx.all.js"></script>
+
+        <!-- Ace -->
+        <script src="lib/ace/ace.js"></script>
 
         <!-- Examples -->
         <script src="common.js" type="application/javascript;version=1.7"></script>
@@ -46,11 +48,13 @@
         <script src="generators.js" type="application/javascript;version=1.7"></script>
         <script src="csp.js" type="application/javascript;version=1.7"></script>
         <script type="application/javascript;version=1.7">
-            Sidebar.init();
             let toggler = Object.create(Toggler).init(
                 document.querySelector('.toggler'),
                 '-', '+'
             );
+            Sidebar.init();
+            Example.init();
+            toggler.onVisible(() => Example.refreshEditors());
         </script>
     </body>
 </html>
