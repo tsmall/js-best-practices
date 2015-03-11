@@ -6,6 +6,18 @@ let csp = require('csp');
 
 let CSP = {
 
+    getNumbers: (startNumber, endNumber) => {
+        let out = csp.chan();
+        csp.go(function*() {
+            for (var i = startNumber; i <= endNumber; i++) {
+                yield csp.take(csp.timeout(500));
+                yield csp.put(out, i);
+            }
+            out.close();
+        });
+        return out;
+    },
+
     getCategories: () => {
         let out = csp.chan();
         csp.go(function*() {
@@ -60,6 +72,21 @@ let CSP = {
 };
 
 let CSPExamples = [
+    {
+        title: "Intro to CSP",
+        run: (logger) => {
+            csp.go(function*() {
+                let numberChan = CSP.getNumbers(1, 10);
+                while (true) {
+                    let number = yield csp.take(numberChan);
+                    if (number === csp.CLOSED) break;
+
+                    logger("Got number from channel: " + number);
+                }
+                logger("Channel closed.");
+            });
+        }
+    },
     {
         title: "Get Movies (CSP)",
         run: (logger) => {
