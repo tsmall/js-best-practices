@@ -95,8 +95,7 @@ let RxExamples = [
             let movieStream = RxFRP.getCategories().flatMap(category => {
                 return RxFRP.getMoviesInCategory(category).
                     map(movie => { return {category: category, name: movie} }).
-                    takeUntil(Rx.Observable.timer(500)).
-                    defaultIfEmpty({category: category, name: 'Timed out!'});
+                    timeout(500, Rx.Observable.return({category: category, name: "Timed out!"}));
             });
 
             movieStream.subscribe(
