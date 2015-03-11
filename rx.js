@@ -6,6 +6,13 @@ let Rx = window.Rx;
 
 let RxFRP = {
 
+    getNumbers: (startNumber, endNumber) => {
+        return Rx.Observable.
+            interval(500).
+            map(i => i + startNumber).
+            take(endNumber - startNumber + 1);
+    },
+
     getCategories: () => {
         return Rx.Observable.
             fromArray(Movies.categories).
@@ -21,6 +28,17 @@ let RxFRP = {
 };
 
 let RxExamples = [
+    {
+        title: "Intro to Rx",
+        run: (logger) => {
+            let numberStream = RxFRP.getNumbers(1, 10);
+            numberStream.subscribe(
+                number => logger(number),
+                (err) => logger("Error: " + err),
+                () => logger("Complete")
+            );
+        }
+    },
     {
         title: "Get Movies (Rx)",
         run: (logger) => {
