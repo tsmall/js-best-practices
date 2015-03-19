@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 1em;
 
-    font-family: "Input Sans Condensed", sans-serif;
+    font-family: "Input Sans Condensed", "Fira Sans", sans-serif;
     font-size: 100%;
     line-height: 1.3em;
 }
@@ -16,7 +16,7 @@ section {
 }
 
 button {
-    font-family: "Input Serif Condensed";
+    font-family: inherit;
     font-size: inherit;
 
     width: 100%;
@@ -38,7 +38,7 @@ button:active {
 }
 
 h1, h2, h3 {
-    font-family: "Input Serif Condensed", serif;
+    font-family: "Input Serif Condensed", "Fira Sans", serif;
 }
 
 pre {
@@ -55,7 +55,7 @@ pre {
 }
 
 #example-editor, #helpers-editor, pre {
-    font-family: "Input Mono";
+    font-family: "Input Mono", "Fira Mono", monospace;
     font-size: 12px;
     line-height: 1.6em;
 }
