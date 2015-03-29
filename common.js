@@ -133,7 +133,6 @@ let Example = {
         case window.RxFRP: return 'RxFRP';
         case window.GenHelp: return 'GenHelp';
         case window.CSP: return 'CSP';
-        case window.BaconFRP: return 'BaconFRP';
         default: throw new Error("Unknown obj: " + obj);
         }
     }
@@ -193,8 +192,7 @@ let Sidebar = {
             {title: 'Promises', helpers: w.Promises, examples: w.PromiseExamples},
             {title: 'Rx', helpers: w.RxFRP, examples: w.RxExamples},
             {title: 'Generators', helpers: w.GenHelp, examples: w.GenExamples},
-            {title: 'CSP', helpers: w.CSP, examples: w.CSPExamples},
-            {title: 'Bacon', helpers: w.BaconFRP, examples: w.BaconExamples}
+            {title: 'CSP', helpers: w.CSP, examples: w.CSPExamples}
         ];
 
         let containers = exampleSections.map(this._createExampleSection.bind(this));
