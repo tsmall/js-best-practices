@@ -34,8 +34,8 @@ let RxExamples = [
             let numberStream = RxFRP.getNumbers(1, 10);
             numberStream.subscribe(
                 number => logger(number),
-                (err) => logger("Error: " + err),
-                () => logger("Complete")
+                err    => logger("Error: " + err),
+                ()     => logger("Complete")
             );
         }
     },
@@ -82,8 +82,8 @@ let RxExamples = [
 
             movieStream.subscribe(
                 movie => logger(movie.category + ' - ' + movie.name),
-                null,
-                () => logger("Loading finished.")
+                err   => logger("Error: " + err),
+                ()    => logger("Loading finished.")
             );
         }
     },
@@ -100,8 +100,8 @@ let RxExamples = [
 
             movieStream.subscribe(
                 movie => logger(movie.category + ' - ' + movie.name),
-                null,
-                () => logger("Loading finished.")
+                err   => logger("Error: " + err),
+                ()    => logger("Loading finished.")
             );
         }
     }
