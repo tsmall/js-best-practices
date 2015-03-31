@@ -42,6 +42,7 @@ let Example = {
         this.exampleEditor.navigateTo(0, 0);
 
         Logger.clear();
+        UISection.hide();
 
         let evalHelpers = this._evalCode.bind(this, this.helpersEditor);
         let evalExample = this._evalCode.bind(this, this.exampleEditor);
@@ -133,6 +134,7 @@ let Example = {
         case window.RxFRP: return 'RxFRP';
         case window.GenHelp: return 'GenHelp';
         case window.CSP: return 'CSP';
+        case window.UI: return 'UI';
         default: throw new Error("Unknown obj: " + obj);
         }
     }
@@ -173,6 +175,48 @@ let Logger = {
 };
 
 /**
+ * UISection is an object for managing the UI example container.
+ */
+let UISection = {
+
+    _uiSectionElement: null,
+    _uiContainerElement: null,
+
+    hide: function() {
+        let uiSection = this._getUISection();
+        uiSection.style.display = 'none';
+    },
+
+    show: function() {
+        let uiSection = this._getUISection();
+        uiSection.style.display = 'block';
+
+        let uiContainer = this._getUIContainer();
+        uiContainer.innerHTML = '';
+    },
+
+    addElement: function(domElement) {
+        let uiContainer = this._getUIContainer();
+        uiContainer.appendChild(domElement);
+    },
+
+    _getUISection: function() {
+        if ( ! this._uiSectionElement ) {
+            this._uiSectionElement = document.getElementById('ui');
+        }
+        return this._uiSectionElement;
+    },
+
+    _getUIContainer: function() {
+        if ( ! this._uiContainerElement ) {
+            this._uiContainerElement = document.getElementById('ui-container');
+        }
+        return this._uiContainerElement;
+    }
+
+};
+
+/**
  * Sidebar is an object for managing the example sidebar.
  */
 let Sidebar = {
@@ -192,7 +236,8 @@ let Sidebar = {
             {title: 'Promises', helpers: w.Promises, examples: w.PromiseExamples},
             {title: 'Rx', helpers: w.RxFRP, examples: w.RxExamples},
             {title: 'Generators', helpers: w.GenHelp, examples: w.GenExamples},
-            {title: 'CSP', helpers: w.CSP, examples: w.CSPExamples}
+            {title: 'CSP', helpers: w.CSP, examples: w.CSPExamples},
+            {title: 'UI', helpers: w.UI, examples: w.UIExamples}
         ];
 
         let containers = exampleSections.map(this._createExampleSection.bind(this));
