@@ -7,6 +7,10 @@ body {
     line-height: 1.3em;
 }
 
+a {
+    color: blue;
+}
+
 aside {
     float: right;
     width: 30%;

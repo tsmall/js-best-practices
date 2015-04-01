@@ -135,6 +135,7 @@ let Example = {
         case window.GenHelp: return 'GenHelp';
         case window.CSP: return 'CSP';
         // case window.UI: return 'UI';
+        case window.Resources: return 'Resources';
         default: throw new Error("Unknown obj: " + obj);
         }
     }
@@ -238,6 +239,7 @@ let Sidebar = {
             {title: 'Generators', helpers: w.GenHelp, examples: w.GenExamples},
             {title: 'CSP', helpers: w.CSP, examples: w.CSPExamples},
             // {title: 'UI', helpers: w.UI, examples: w.UIExamples}
+            {title: 'Resources', helpers: w.Resources, examples: w.ResourceExamples},
         ];
 
         let containers = exampleSections.map(this._createExampleSection.bind(this));
