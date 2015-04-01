@@ -25,10 +25,16 @@ let Example = {
         this.helpersEditor = ace.edit('helpers-editor');
         this.helpersEditor.setTheme("ace/theme/solarized_light");
         this.helpersEditor.getSession().setMode("ace/mode/javascript");
+        this.helpersEditor.setOptions({
+            maxLines: Infinity
+        });
 
         this.exampleEditor = ace.edit('example-editor');
         this.exampleEditor.setTheme("ace/theme/solarized_light");
         this.exampleEditor.getSession().setMode("ace/mode/javascript");
+        this.exampleEditor.setOptions({
+            maxLines: Infinity
+        });
     },
 
     load: function(helpers, example) {
