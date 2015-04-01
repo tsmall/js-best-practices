@@ -3,9 +3,9 @@
 let Movies = {
     categories: ["Action", "Drama", "Horror"],
 
-    actionMovies: ["300", "Sin City"],
-    dramaMovies: ["Eyes Wide Shut", "Saving Private Ryan"],
-    horrorMovies: ["The Ring", "The Conjuring"],
+    actionMovies: ["Raiders of the Lost Ark", "Aliens"],
+    dramaMovies: ["Gone With The Wind", "Citizen Kane"],
+    horrorMovies: ["The Exorcist", "Carrie"],
 
     getMoviesInCategory: category => {
         let movies = [];
