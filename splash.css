@@ -7,3 +7,9 @@ main {
     align-items: center;
     justify-content: center;
 }
+
+#splash-container h2 {
+    color: #888;
+    font-weight: normal;
+    font-style: italic;
+}
