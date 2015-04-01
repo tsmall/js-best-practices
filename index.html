@@ -4,32 +4,43 @@
         <meta charset="utf-8">
         <title>Managing Asynchronous Code</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="splash.css">
     </head>
     <body>
-        <aside>
-            <!-- Links for examples will be automatically added here. -->
-        </aside>
+        <div id="splash-container">
+            <div id="splash">
+                <h2>Welcome to</h2>
+                <h1>Managing Asynchronous Code</h1>
+                <button id="start">Let's get started</button>
+            </div>
+        </div>
 
-        <section class="example">
-            <h1></h1>
-            <div>
-                <h3>Helpers [<a href="#" class="toggler" data-target="#helpers-editor"></a>]</h3>
-                <div id="helpers-editor" class="editor"></div>
-            </div>
-            <div>
-                <h3>Example</h3>
-                <div id="example-editor" class="editor"></div>
-            </div>
-            <button>Run</button>
-            <div id="ui">
-                <h3>UI</h3>
-                <div id="ui-container"></div>
-            </div>
-            <div>
-                 <h3>Output</h3>
-                 <pre class="output"></pre>
-            </div>
-        </section>
+        <main>
+            <aside>
+                <!-- Links for examples will be automatically added here. -->
+            </aside>
+
+            <section class="example">
+                <h1></h1>
+                <div>
+                    <h3>Helpers [<a href="#" class="toggler" data-target="#helpers-editor"></a>]</h3>
+                    <div id="helpers-editor" class="editor"></div>
+                </div>
+                <div>
+                    <h3>Example</h3>
+                    <div id="example-editor" class="editor"></div>
+                </div>
+                <button>Run</button>
+                <div id="ui">
+                    <h3>UI</h3>
+                    <div id="ui-container"></div>
+                </div>
+                <div>
+                    <h3>Output</h3>
+                    <pre class="output"></pre>
+                </div>
+            </section>
+        </main>
 
         <!-- Libraries -->
         <script src="lib/csp.bundled.js"></script>
@@ -39,8 +50,11 @@
         <!-- Ace -->
         <script src="lib/ace/ace.js"></script>
 
-        <!-- Examples -->
+        <!-- Helpers -->
         <script src="common.js" type="application/javascript;version=1.7"></script>
+        <script src="splash.js" type="application/javascript;version=1.7"></script>
+
+        <!-- Examples -->
         <script src="es6.js" type="application/javascript;version=1.7"></script>
         <script src="intro.js" type="application/javascript;version=1.7"></script>
         <script src="callbacks.js" type="application/javascript;version=1.7"></script>
