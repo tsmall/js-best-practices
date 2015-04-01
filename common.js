@@ -235,7 +235,7 @@ let Sidebar = {
             {title: 'Callbacks', helpers: w.Callbacks, examples: w.CallbackExamples},
             {title: 'FP', helpers: w.FP, examples: w.FPExamples},
             {title: 'Promises', helpers: w.Promises, examples: w.PromiseExamples},
-            {title: 'Rx', helpers: w.RxFRP, examples: w.RxExamples},
+            {title: 'Rx / FRP', helpers: w.RxFRP, examples: w.RxExamples},
             {title: 'Generators', helpers: w.GenHelp, examples: w.GenExamples},
             {title: 'CSP', helpers: w.CSP, examples: w.CSPExamples},
             // {title: 'UI', helpers: w.UI, examples: w.UIExamples}
