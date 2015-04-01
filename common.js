@@ -134,7 +134,7 @@ let Example = {
         case window.RxFRP: return 'RxFRP';
         case window.GenHelp: return 'GenHelp';
         case window.CSP: return 'CSP';
-        case window.UI: return 'UI';
+        // case window.UI: return 'UI';
         default: throw new Error("Unknown obj: " + obj);
         }
     }
@@ -237,7 +237,7 @@ let Sidebar = {
             {title: 'Rx', helpers: w.RxFRP, examples: w.RxExamples},
             {title: 'Generators', helpers: w.GenHelp, examples: w.GenExamples},
             {title: 'CSP', helpers: w.CSP, examples: w.CSPExamples},
-            {title: 'UI', helpers: w.UI, examples: w.UIExamples}
+            // {title: 'UI', helpers: w.UI, examples: w.UIExamples}
         ];
 
         let containers = exampleSections.map(this._createExampleSection.bind(this));
