@@ -236,15 +236,7 @@ let Sidebar = {
     init: function() {
         let w = window;
         let exampleSections = [
-            {title: 'Intro to ES6', helpers: w.ES6Intro, examples: w.ES6IntroExamples},
             {title: 'Example data', helpers: w.Intro, examples: w.IntroExamples},
-            {title: 'Callbacks', helpers: w.Callbacks, examples: w.CallbackExamples},
-            {title: 'FP', helpers: w.FP, examples: w.FPExamples},
-            {title: 'Promises', helpers: w.Promises, examples: w.PromiseExamples},
-            {title: 'Rx / FRP', helpers: w.RxFRP, examples: w.RxExamples},
-            {title: 'Generators', helpers: w.GenHelp, examples: w.GenExamples},
-            {title: 'CSP', helpers: w.CSP, examples: w.CSPExamples},
-            // {title: 'UI', helpers: w.UI, examples: w.UIExamples}
             {title: 'Resources', helpers: w.Resources, examples: w.ResourceExamples},
         ];
 
