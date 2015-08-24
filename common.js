@@ -16,10 +16,24 @@ let Movies = {
     }
 };
 
+let Registrar = {
+
+    register: function({ title, helpers, helpersName, examples }) {
+        Sidebar.register(title, helpers, examples);
+        Example.register(helpers, helpersName);
+    }
+
+};
+
 let Example = {
 
     helpersEditor: null,
     exampleEditor: null,
+    _objNames: new Map(),
+
+    register: function(helpers, helpersName) {
+        this._objNames.set(helpers, helpersName);
+    },
 
     init: function() {
         this.helpersEditor = ace.edit('helpers-editor');
@@ -119,7 +133,7 @@ let Example = {
     },
 
     _objToString: function(obj) {
-        let objName = this._getObjName(obj);
+        let objName = this._objNames.get(obj);
         let source = [];
         for (let prop in obj) {
             if (obj.hasOwnProperty(prop)) {
@@ -128,22 +142,6 @@ let Example = {
             }
         }
         return source.join('\n');
-    },
-
-    _getObjName: function(obj) {
-        switch (obj) {
-        case window.ES6Intro: return 'ES6Intro';
-        case window.Intro: return 'Intro';
-        case window.Callbacks: return 'Callbacks';
-        case window.FP: return 'FP';
-        case window.Promises: return 'Promises';
-        case window.RxFRP: return 'RxFRP';
-        case window.GenHelp: return 'GenHelp';
-        case window.CSP: return 'CSP';
-        // case window.UI: return 'UI';
-        case window.Resources: return 'Resources';
-        default: throw new Error("Unknown obj: " + obj);
-        }
     }
 
 };
@@ -228,19 +226,23 @@ let UISection = {
  */
 let Sidebar = {
 
+    _exampleSections: [],
+
+    register: function(title, helpers, examples) {
+        this._exampleSections.push({
+            title: title,
+            helpers: helpers,
+            examples: examples
+        });
+    },
+
     /**
      * init creates the sidebar links from the actual example code,
      * hooking them up so clicking on one will load that example's
      * code in the example runner.
      */
     init: function() {
-        let w = window;
-        let exampleSections = [
-            {title: 'Example data', helpers: w.Intro, examples: w.IntroExamples},
-            {title: 'Resources', helpers: w.Resources, examples: w.ResourceExamples},
-        ];
-
-        let containers = exampleSections.map(this._createExampleSection.bind(this));
+        let containers = this._exampleSections.map(this._createExampleSection.bind(this));
         let sidebar = document.querySelector('aside');
         containers.forEach(section => sidebar.appendChild(section));
     },

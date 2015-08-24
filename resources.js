@@ -61,3 +61,10 @@ let ResourceExamples = [
         }
     }
 ];
+
+Registrar.register({
+    title: 'Resources',
+    helpers: Resources,
+    helpersName: 'Resources',
+    examples: ResourceExamples
+});
