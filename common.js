@@ -1,21 +1,3 @@
-"use strict";
-
-let Movies = {
-    categories: ["Action", "Drama", "Horror"],
-
-    actionMovies: ["Raiders of the Lost Ark", "Aliens"],
-    dramaMovies: ["Gone With The Wind", "Citizen Kane"],
-    horrorMovies: ["The Exorcist", "Carrie"],
-
-    getMoviesInCategory: category => {
-        let movies = [];
-        if (category === "Action") movies = Movies.actionMovies;
-        if (category === "Drama") movies = Movies.dramaMovies;
-        if (category === "Horror") movies = Movies.horrorMovies;
-        return movies;
-    }
-};
-
 let Registrar = {
 
     register: function({ title, helpers, helpersName, examples }) {
