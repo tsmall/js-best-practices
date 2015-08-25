@@ -10,7 +10,7 @@ let GlobalHelpers = {
         }
     ],
 
-    getFix: () => '"use strict;"'
+    getFix: () => '"use strict";'
 };
 
 let GlobalExamples = [
