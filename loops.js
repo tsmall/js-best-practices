@@ -8,7 +8,7 @@ let LoopExamples = [
         run: (logger) => {
             const people = ['john', 'jack', 'jane'];
             // people.foo = 'bar';
-            for (var each in people) {
+            for (let each in people) {
                 logger(each);
             }
         }
@@ -18,7 +18,7 @@ let LoopExamples = [
         run: (logger) => {
             const people = ['john', 'jack', 'jane'];
             // people.foo = 'bar';
-            for (var each of people) {
+            for (let each of people) {
                 logger(each);
             }
         }
@@ -35,8 +35,8 @@ let LoopExamples = [
         title: "Arrays: Convert to Uppercase (for...of)",
         run: (logger) => {
             const people = ['john', 'jack', 'jane'];
-            var lowercasePeople = [];
-            for (var name of people) {
+            let lowercasePeople = [];
+            for (let name of people) {
                 lowercasePeople.push(name.toUpperCase());
             }
             logger(lowercasePeople);
@@ -54,8 +54,8 @@ let LoopExamples = [
         title: "Arrays: Find 'A' Names (for...of)",
         run: (logger) => {
             const people = ['john', 'jack', 'jane'];
-            var aNames = [];
-            for (var name of people) {
+            let aNames = [];
+            for (let name of people) {
                 if (name.includes('a')) {
                     aNames.push(name);
                 }
