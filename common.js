@@ -269,6 +269,7 @@ let Sidebar = {
                 link.innerHTML = ex.title;
                 link.onclick = (event) => {
                     event.preventDefault();
+                    event.target.style.color = '#9696C8';
                     Example.load(helpers, ex);
                     window.scrollTo(0, 0);
                 };
