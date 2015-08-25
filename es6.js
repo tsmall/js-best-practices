@@ -59,6 +59,20 @@ let ES6Examples = [
         }
     },
     {
+        title: 'Destructuring: Map Entries',
+        run: (logger) => {
+            const ages = new Map([
+               ['John', 21],
+               ['Jane', 22],
+               ['Jack', 23]
+            ]);
+            
+            for (let [key, value] of ages.entries()) {
+                logger(`${key}: ${value}`);
+            }
+        }
+    },
+    {
         title: 'Destructuring: Parameters',
         run: (logger) => {
             function describePerson({ first, last }) {
