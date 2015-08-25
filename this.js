@@ -55,7 +55,10 @@ let ThisExamples = [
 
                 sayHiLater: function(seconds) {
                     logger("Wait for it...");
-                    window.setTimeout(this.sayHi.bind(this), seconds * 1000);
+                    window.setTimeout(
+                        this.sayHi.bind(this),
+                        seconds * 1000
+                    );
                 }
             };
 
