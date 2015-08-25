@@ -1,29 +1,17 @@
-# Async Coding Styles in JavaScript
+# JavaScript Best Practices
 
-Asynchronous programming isn't anything new.
-It's been in our operating system calls and UI logic for a long time.
-But many programs were able to be primarily written in a synchronous coding style.
-But with the prevalence of JavaScript
-more and more code is being written in an asynchronous style.
-Unfortunately,
-most programmers' toolboxes only contained one tool for asynchrony:
-callbacks.
-That has lead to code that is hard to read
-and hard to maintain.
+This repository contains the interactive examples I used
+in my "JavaScript Best Practices" tech talk at Offerpop
+on Tuesday, August 25, 2015.
 
-Luckily there are better tools available.
-Some are new,
-and some are old.
-This repository contains examples for exploring asynchronous programming
-in four styles:
+## How To Run
 
-* Plain callbacks (for comparison)
-* Futures / promises via [q][]
-* Functional Reactive Programming (FRP) via [Bacon.js][] and [RxJS][]
-* Communicating Sequential Processes (CSP) via [js-csp][]
+> **NOTE:**
+> These examples use ES6 features that many browsers don't support yet.
+> You will need to use the latest nightly version of Firefox to run them.
 
+If you want to look at these examples locally,
+follow these steps:
 
-[bacon.js]: http://baconjs.github.io
-[js-csp]: https://github.com/jlongster/js-csp
-[q]: http://documentup.com/kriskowal/q/
-[rxjs]: https://github.com/Reactive-Extensions/RxJS
+1. Clone the repository.
+2. Open the `index.html` file in Firefox Nightly.
